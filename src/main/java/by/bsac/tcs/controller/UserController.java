@@ -10,24 +10,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+/*@RestController*/
 public class UserController {
 
   @Autowired
   private Logger logger;
 
-  @Autowired
   private ClientRepository repository;
 
-  @RequestMapping("/")
+  @Autowired
+  public UserController(ClientRepository repository) {
+    this.repository = repository;
+  }
+
+  /*@RequestMapping("/")
   public String getDeviceStatus() {
     return "OK!";
-  }
+  }*/
 
   @RequestMapping(value = "/clients", method = RequestMethod.POST)
   public String addNewClient(@RequestParam String id, @RequestParam String login) {
-    /*User user = new User(id, login);
-    repository.save(user);*/
     return "saved!";
   }
 

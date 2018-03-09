@@ -13,19 +13,14 @@ import javax.persistence.Id
 @Entity
 @Canonical
 class EventLog {
-    private long id
-    private long postBoxId
-    private by.bsac.tcs.model.Event event
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long getId() {
-        return id
-    }
+    private long id
+
+    private long postBoxId
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    Event getEvent() {
-        return event
-    }
+    private Event event
 }
