@@ -19,9 +19,12 @@ class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id
-    private String login
-    private String surname
+    String id
+    String login
+    String name
+    String surname
+
+
 
     @ManyToMany
     @JoinTable(name = "subscription",
