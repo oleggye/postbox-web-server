@@ -2,13 +2,7 @@ package by.bsac.tcs.model
 
 import groovy.transform.Canonical
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 @Canonical
@@ -16,11 +10,13 @@ class EventLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id
+    Long id
 
-    private long postBoxId
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_post_box")
+    Postbox postbox
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Event event
+    Event event
 }

@@ -20,3 +20,4 @@
 /.idea/
 /postbox-web-server.iml
 /web-server.iml
+/target/
