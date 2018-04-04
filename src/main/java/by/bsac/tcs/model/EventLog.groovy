@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Canonical
-class EventLog {
+class EventLog implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

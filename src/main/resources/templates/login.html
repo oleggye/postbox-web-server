@@ -3,6 +3,23 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <title>Spring Security Example </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css"
+        href="/static/css/custom/login-form.css"
+        th:href="@{/css/custom/login-form.css}">
+  <link rel="stylesheet" type="text/css"
+        href="/static/css/bootstrap.css"
+        th:href="@{/css/bootstrap.css}">
+
+  <script rel="stylesheet" type="application/javascript"
+          href="/static/js/jquery-3.3.1.min.js"
+          th:href="@{/js/jquery-3.3.1.min.js}"></script>
+  <script rel="stylesheet" type="application/javascript"
+          href="/static/js/bootstrap.js"
+          th:href="@{/js/bootstrap.js}"></script>
+
 </head>
 <body>
 <div th:if="${param.error}">
@@ -11,10 +28,41 @@
 <div th:if="${param.logout}">
   You have been logged out.
 </div>
+<!--
 <form th:action="@{/login}" method="post">
   <div><label> User Name : <input type="text" name="username"/> </label></div>
   <div><label> Password: <input type="password" name="password"/> </label></div>
   <div><input type="submit" value="Sign In"/></div>
 </form>
+-->
+
+<div class="container-fluid text-center form-center">
+  <div class="row content">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4" id="login-form-parent">
+      <form th:action="@{/app-login}" id="login-form" method="post">
+        <div class="form-group">
+          <label for="app_username">Username</label>
+          <input type="text" class="form-control" id="app_username">
+        </div>
+        <div class="form-group">
+          <label for="app_password">Password:</label>
+          <input type="password" class="form-control" id="app_password">
+        </div>
+        <!-- <div class="form-check">
+           <label class="form-check-label">
+             <input class="form-check-input" type="checkbox"> Remember me
+           </label>
+         </div>-->
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+</div>
+
+<footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer>
 </body>
 </html>

@@ -3,19 +3,11 @@ package by.bsac.tcs.model
 import groovy.transform.Canonical
 import groovy.transform.EqualsAndHashCode
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.JoinTable
-import javax.persistence.ManyToMany
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
+@Entity
 @Canonical
 @EqualsAndHashCode(excludes = "postboxes")
-@Entity
 class User {
 
     @Id
@@ -23,13 +15,23 @@ class User {
     String id
 
     @Column
-    String login
-
-    @Column
     String name
 
     @Column
     String surname
+
+    @Column
+    String login
+
+    @Column
+    String password
+
+    @Column
+    String role
+
+    @ManyToOne
+    @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
+    Address address
 
     @ManyToMany
     @JoinTable(name = "subscription",
