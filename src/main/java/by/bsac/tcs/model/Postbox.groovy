@@ -8,11 +8,11 @@ import javax.persistence.*
 @Entity
 @Canonical
 @EqualsAndHashCode(excludes = "users")
-class Postbox implements Serializable {
+class Postbox {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id
+    long id
 
     @ManyToOne
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)

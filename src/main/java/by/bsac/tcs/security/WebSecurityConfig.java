@@ -1,4 +1,4 @@
-package by.bsac.tcs.config;
+package by.bsac.tcs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -33,18 +33,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll();*/
 
     http.authorizeRequests()
-        .antMatchers("/app/secure/**").hasAnyRole("ADMIN", "USER")
-        .and().formLogin()  //login configuration
-        .loginPage("/app/login")
-        .loginProcessingUrl("/app-login")
-        .usernameParameter("app_username")
-        .passwordParameter("app_password")
-        .defaultSuccessUrl("/app/secure/home")
-        .and().logout()    //logout configuration
-        .logoutUrl("/app-logout")
-        .logoutSuccessUrl("/app/login")
-        .and().exceptionHandling() //exception handling configuration
-        .accessDeniedPage("/app/error");
+        .antMatchers("/secure/**").hasAnyRole("ADMIN", "USER")
+          .and()
+        .formLogin()  //login configuration
+          .loginPage("/login")
+          .loginProcessingUrl("/app-login")
+          .usernameParameter("app_username")
+          .passwordParameter("app_password")
+          .defaultSuccessUrl("/secure/home")
+          .and()
+        .logout()    //logout configuration
+          .logoutUrl("/app-logout")
+          .logoutSuccessUrl("/login")
+          .invalidateHttpSession(true)
+        .and()
+        .exceptionHandling() //exception handling configuration
+          .accessDeniedPage("/error");
   }
 
   @Autowired

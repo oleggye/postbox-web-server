@@ -6,11 +6,11 @@ import javax.persistence.*
 
 @Entity
 @Canonical
-class EventLog implements Serializable {
+class EventLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id
+    long id
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_post_box")
@@ -19,4 +19,10 @@ class EventLog implements Serializable {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     Event event
+
+    @Column
+    int quantity
+
+    @Column
+    long time
 }

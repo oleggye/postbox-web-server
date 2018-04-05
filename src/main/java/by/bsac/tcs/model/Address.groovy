@@ -10,14 +10,17 @@ class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id
+    long id
 
     @Column
     String country
+
     @Column
     String city
+
     @Column
     String street
+
     @Column
     String building;
 }

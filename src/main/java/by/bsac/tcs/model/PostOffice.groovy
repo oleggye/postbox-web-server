@@ -12,17 +12,17 @@ class PostOffice {
 
     @Id
     @GeneratedValue
-    Long id;
+    long id
 
     @ManyToOne
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
-    Address address;
+    Address address
 
     @Column
-    String title;
+    String title
 
     @Column
-    String postIndex;
+    int postIndex
 
     @OneToMany(mappedBy = "postOffice")
     Set<Postbox> postboxes = new HashSet<>(0)

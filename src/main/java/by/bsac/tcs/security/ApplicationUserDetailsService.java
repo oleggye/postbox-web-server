@@ -1,8 +1,10 @@
-package by.bsac.tcs.config;
+package by.bsac.tcs.security;
 
 import by.bsac.tcs.model.User;
+import by.bsac.tcs.model.UserPrivate;
 import by.bsac.tcs.repository.ClientRepository;
 import java.util.Collections;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,13 +18,18 @@ public class ApplicationUserDetailsService implements UserDetailsService {
   @Autowired
   private ClientRepository clientRepository;
 
+  @Autowired
+  private Logger logger;
+
   @Override
   public UserDetails loadUserByUsername(String login) {
-    final User user = clientRepository.findByLogin(login);
+    logger.info("login{0}", login);
 
-    final GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
+    final User user = clientRepository.findByLogin(login);
+    UserPrivate userPrivate = user.getUserPrivate();
+    final GrantedAuthority authority = new SimpleGrantedAuthority(userPrivate.getRole().name());
     return new org.springframework.security.core.userdetails.User(
         user.getLogin(),
-        user.getPassword(), Collections.singleton((authority)));
+        userPrivate.getPassword(), Collections.singleton((authority)));
   }
 }
