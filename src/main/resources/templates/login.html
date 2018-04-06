@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <title>Spring Security Example </title>
   <meta charset="utf-8">
@@ -13,6 +12,22 @@
         href="/static/css/bootstrap.css"
         th:href="@{/css/bootstrap.css}">
 
+  <script rel="stylesheet" type="application/javascript"
+          href="/static/js/jquery-3.3.1.min.js"
+          th:href="@{/js/jquery-3.3.1.min.js}"></script>
+  <script rel="stylesheet" type="application/javascript"
+          href="/static/js/bootstrap.js"
+          th:href="@{/js/bootstrap.js}"></script>
+
+  <link rel="stylesheet" type="text/css"
+        href="/static/css/custom/login-form.css"
+        th:href="@{/css/custom/login-form.css}">
+  <link rel="stylesheet" type="text/css"
+        href="/static/css/bootstrap.css"
+        th:href="@{/css/bootstrap.css}">
+
+  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"
+        th:href="@{/css/bootstrap.css}">
   <script rel="stylesheet" type="application/javascript"
           href="/static/js/jquery-3.3.1.min.js"
           th:href="@{/js/jquery-3.3.1.min.js}"></script>
@@ -35,6 +50,14 @@
   <div><input type="submit" value="Sign In"/></div>
 </form>
 -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+  </div>
+  </div>
+</nav>
 
 <div class="container-fluid text-center form-center">
   <div class="row content">

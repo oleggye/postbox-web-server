@@ -23,6 +23,13 @@ public class WebController {
     return mav;
   }
 
+  @GetMapping("/index")
+  public ModelAndView index() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("index");
+    return mav;
+  }
+
   @GetMapping("/template")
   public String template() {
     ModelAndView mav = new ModelAndView();
