@@ -30,6 +30,20 @@ public class WebController {
     return mav;
   }
 
+  @GetMapping("/overview")
+  public ModelAndView overview() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("overview");
+    return mav;
+  }
+
+  @GetMapping("/reports")
+  public ModelAndView reports() {
+    ModelAndView mav = new ModelAndView();
+    mav.setViewName("reports");
+    return mav;
+  }
+
   @GetMapping("/template")
   public String template() {
     ModelAndView mav = new ModelAndView();

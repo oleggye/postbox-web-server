@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+</head>
+<body>
+
+<nav th:fragment="leftNavbarFragment" class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+  <ul class="nav nav-pills flex-column" th:with="page=${#httpServletRequest.requestURI}">
+    <li class="nav-item">
+      <a class="nav-link" th:classappend="${#strings.equals(page, '/secure/overview')} ? active"
+         th:href="@{/secure/overview}" th:text="#{index.overview}">
+        <span class="sr-only">(current)</span></a>
+    </li>
+    <li class=" nav-item">
+      <a class="nav-link" th:classappend="${#strings.equals(page, '/secure/reports')} ? active"
+         th:href="@{/secure/reports}" th:text="#{index.reports}"></a>
+    </li>
+    <a th:text="${#httpServletRequest.requestURI}"> </a>
+    <!--    <li class="nav-item">
+          <a class="nav-link" href="#">Analytics</a>
+        </li>-->
+  </ul>
+
+  <!--<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Nav item</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Nav item again</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">One more nav</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Another nav item</a>
+    </li>
+  </ul>-->
+
+  <!--<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Nav item again</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">One more nav</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Another nav item</a>
+    </li>
+  </ul>-->
+</nav>
+
+</body>
+</html>
