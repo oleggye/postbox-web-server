@@ -1,40 +1,52 @@
 package by.bsac.tcs.controller;
 
+import by.bsac.tcs.model.EventLog;
 import by.bsac.tcs.model.Postbox;
 import by.bsac.tcs.service.PostBoxService;
 import by.bsac.tcs.service.exception.PostBoxServiceException;
 import by.bsac.tcs.service.exception.ServiceValidationException;
-import org.slf4j.Logger;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-
+@Controller
+@RequestMapping("/secure/postbox")
 public class PostBoxController {
-
-  @Autowired
-  private Logger logger;
 
   private PostBoxService postBoxService;
 
   @Autowired
-  public PostBoxController(PostBoxService postBoxService)
-  {
+  public PostBoxController(PostBoxService postBoxService) {
     this.postBoxService = postBoxService;
   }
 
-  @RequestMapping(value = "/postbox/{id}", method = RequestMethod.GET)
+  @GetMapping(value = "/{id}")
   public Postbox getPostBoxById(@PathVariable long id)
       throws PostBoxServiceException, ServiceValidationException {
-    logger.info("getPostBoxById {}", id);
-    return postBoxService.getPostBox(id);
+    return postBoxService.getPostBoxById(id);
   }
 
-  @RequestMapping(value = "/postbox/registration", method = RequestMethod.POST)
+  @GetMapping(value = "/{id}/report")
+  public ModelAndView getPostBoxByReport(@PathVariable long id)
+      throws PostBoxServiceException, ServiceValidationException {
+    final Postbox postBox = postBoxService.getPostBoxById(id);
+    Set<EventLog> eventLogs = postBox.getEventLogs();
+
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("postBox", postBox);
+    mav.addObject("eventLogs", eventLogs);
+    mav.setViewName("reports");
+    return mav;
+  }
+
+  @PostMapping
   public void registerPostBox(Postbox postBox)
       throws PostBoxServiceException, ServiceValidationException {
-    logger.info("getPostBoxById {}", postBox);
     postBoxService.registration(postBox);
   }
 }

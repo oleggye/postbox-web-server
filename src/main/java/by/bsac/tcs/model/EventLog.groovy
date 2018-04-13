@@ -5,6 +5,7 @@ import groovy.transform.Canonical
 import javax.persistence.*
 
 @Entity
+@Table(name = "event_log")
 @Canonical
 class EventLog {
 
@@ -13,14 +14,14 @@ class EventLog {
     long id
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_post_box")
+    @JoinColumn(name = "id_post_box", referencedColumnName = "id", nullable = false)
     Postbox postbox
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_event", referencedColumnName = "id", nullable = false)
     Event event
 
-    @Column
+    @Column(nullable = true)
     int quantity
 
     @Column

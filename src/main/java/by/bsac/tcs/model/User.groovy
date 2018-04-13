@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Canonical
-@ToString(excludes = "postboxes")
+@ToString(excludes = ["postboxes", "userPrivate"])
 @EqualsAndHashCode(excludes = "postboxes")
 class User {
 
@@ -25,7 +25,7 @@ class User {
     @Column
     String login
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     UserPrivate userPrivate
 
@@ -33,14 +33,15 @@ class User {
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
     Address address
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "subscription",
             joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_post_box", referencedColumnName = "id"))
-    Set<Postbox> postboxes = new HashSet<>(0)
+    Set<Postbox> postboxes
 }
 
 @Entity
+@Table(name = "user_private")
 class UserPrivate {
 
     @Id

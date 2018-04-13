@@ -1,6 +1,7 @@
 package by.bsac.tcs.model
 
 import groovy.transform.Canonical
+import groovy.transform.ToString
 
 import javax.persistence.*
 
@@ -23,4 +24,14 @@ class Address {
 
     @Column
     String building;
+
+    @Override
+    String toString() {
+        return "Address{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", building='" + building + '\'' +
+                '}';
+    }
 }

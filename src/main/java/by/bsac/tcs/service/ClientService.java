@@ -11,4 +11,6 @@ public interface ClientService {
   void signIn(User user) throws ClientServiceException, ServiceValidationException;
 
   void signOut() throws ClientServiceException;
+
+  User getUserByName(final String userName) throws ClientServiceException;
 }
