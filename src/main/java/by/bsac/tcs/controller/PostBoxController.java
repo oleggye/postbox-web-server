@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -32,7 +33,7 @@ public class PostBoxController {
   }
 
   @GetMapping(value = "/{id}/report")
-  public ModelAndView getPostBoxByReport(@PathVariable long id)
+  public ModelAndView getReportPage(@PathVariable long id)
       throws PostBoxServiceException, ServiceValidationException {
     final Postbox postBox = postBoxService.getPostBoxById(id);
     Set<EventLog> eventLogs = postBox.getEventLogs();
@@ -43,6 +44,7 @@ public class PostBoxController {
     mav.setViewName("reports");
     return mav;
   }
+
 
   @PostMapping
   public void registerPostBox(Postbox postBox)

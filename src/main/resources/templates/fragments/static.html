@@ -20,13 +20,42 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<!--th:href="@{/js/jquery-3.3.1.min.js}"-->
 <div th:fragment="scriptFragment">
-<script th:href="@{/js/jquery-3.3.1.min.js}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
-        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
-        crossorigin="anonymous"></script>
-<script th:href="@{/js/bootstrap.min.js}"></script>
-</div>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+  <!--<script type="text/javascript"
+          th:href="@{webjars/jquery/3.3.1-1/jquery.min.js}"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+          integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+          crossorigin="anonymous"></script>
+  <script th:href="@{/js/bootstrap.min.js}"></script>
 
+  /*[['localhost:8080/secure/postbox/' + ${postBox.id} +'/events']]*/
+  <script type="text/javascript">
+    function fetchEventLogs() {
+      console.log('fetchEventLogs');
+      $.ajax({
+        url: 'localhost:8080/secure/postbox/222850/events',
+        type: 'get',
+        dataType: "json",
+      })
+      .done(function (response) {
+        // Perform operation on the return value
+        alert(response);
+        console.log(response)
+      })
+      .fail(function (xhr, status, errorThrown) {
+        alert("Sorry, there was a problem!");
+        console.log("Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(xhr);
+      })
+    };
+
+    $(document).ready(function () {
+      setTimeout(fetchEventLogs, 1000);
+    });
+  </script>
+</div>
 </body>
 </html>

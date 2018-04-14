@@ -7,7 +7,8 @@
 # BlueJ files
 *.ctxt
 
-
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
 
 # Package Files #
 *.jar
@@ -17,7 +18,16 @@
 *.tar.gz
 *.rar
 
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
 /.idea/
-/postbox-web-server.iml
-/web-server.iml
+dataserver.iml
+/data-by.bsac.tcs.server.iml
+/data-server.iml
+/web-server/web-server.iml
+/post-server/post-server.iml
+/post-server/post-by.bsac.tcs.server.iml
+/lib/
+/post-server/target/
 /target/
+/web-server.iml

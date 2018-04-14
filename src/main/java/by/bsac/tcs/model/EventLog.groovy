@@ -1,5 +1,6 @@
 package by.bsac.tcs.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import groovy.transform.Canonical
 
 import javax.persistence.*
@@ -13,11 +14,12 @@ class EventLog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_post_box", referencedColumnName = "id", nullable = false)
     Postbox postbox
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "id_event", referencedColumnName = "id", nullable = false)
     Event event
 
