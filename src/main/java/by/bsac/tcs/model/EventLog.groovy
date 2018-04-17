@@ -19,7 +19,7 @@ class EventLog {
     @JoinColumn(name = "id_post_box", referencedColumnName = "id", nullable = false)
     Postbox postbox
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_event", referencedColumnName = "id", nullable = false)
     Event event
 

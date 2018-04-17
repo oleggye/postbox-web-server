@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UserControllerTest {
   private MockMvc mvc;
 
   @Test
+  @Ignore
   public void shouldGetDeviceStatus() throws Exception {
     mvc.perform(MockMvcRequestBuilders.get("/")
         .accept(MediaType.APPLICATION_JSON))
@@ -31,6 +33,7 @@ public class UserControllerTest {
   }
 
   @Test
+  @Ignore
   public void shouldAddNewClient() throws Exception {
     mvc.perform(MockMvcRequestBuilders.post("/clients")
         .param("id","123")

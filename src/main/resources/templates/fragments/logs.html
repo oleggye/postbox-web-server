@@ -6,9 +6,23 @@
 </head>
 <body>
 <main th:fragment="mainFragment" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+
+  <div class="dropdown float-right">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      last 15
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item disabled" href="#" id="per-15-li">last 15</a></li>
+      <li><a class="dropdown-item" href="#" id="per-30-li">last 30</a></li>
+      <li><a class="dropdown-item" href="#" id="per-50-li">last 50</a></li>
+      <li><a class="dropdown-item" href="#" id="all-li">All</a></li>
+    </ul>
+  </div>
+
   <h1>Logs</h1>
-  <div class="table-responsive">
-    <table class="table table-striped">
+
+  <div class="table-responsive" id="table-div">
+    <table class="table table-striped" id="log-table">
       <thead>
       <tr>
         <th>#</th>
@@ -17,18 +31,19 @@
         <th>time</th>
       </tr>
       </thead>
-      <tbody th:each="eventLog : ${eventLogs}">
-      <tr>
-        <td th:text="${eventLog.id}"></td>
-        <td th:text="${eventLog.event.name}"></td>
-        <td th:text="${eventLog.quantity}"></td>
-        <td th:text="${eventLog.time}"></td>
-      </tr>
+      <!--th:each="eventLog : ${eventLogs}"-->
+      <tbody  id="table-body">
+      <!--<tr>-->
+        <!--<td th:text="${eventLog.id}"></td>-->
+        <!--<td th:text="${eventLog.event}"></td>-->
+        <!--<td th:text="${eventLog.quantity}"></td>-->
+        <!--<td th:text="${eventLog.time}"></td>-->
+      <!--</tr>-->
       </tbody>
     </table>
   </div>
-</main>
 
+</main>
 
 </body>
 </html>

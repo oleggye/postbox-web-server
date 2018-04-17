@@ -12,11 +12,15 @@
          th:href="@{/secure/overview}" th:text="#{index.overview}">
         <span class="sr-only">(current)</span></a>
     </li>
-    <li class=" nav-item">
+    <!--<li class=" nav-item">
       <a class="nav-link" th:classappend="${#strings.equals(page, '/secure/reports')} ? active"
          th:href="@{/secure/reports}" th:text="#{index.reports}"></a>
-    </li>
-    <a th:text="${#httpServletRequest.requestURI}"> </a>
+    </li>-->
+    <!--
+    If you wish to wee reported url
+    <a th:text="${#httpServletRequest.requestURI}"> </a>-->
+
+
     <!--    <li class="nav-item">
           <a class="nav-link" href="#">Analytics</a>
         </li>-->

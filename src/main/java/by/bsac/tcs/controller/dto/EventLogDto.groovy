@@ -1,8 +1,20 @@
 package by.bsac.tcs.controller.dto
 
-import by.bsac.tcs.model.EventLog
+import groovy.transform.Canonical
 
+import javax.validation.constraints.NotNull
+import java.time.LocalTime
+
+@Canonical
 class EventLogDto {
 
-    Set<EventLog> eventLogs;
+    long id
+
+    @NotNull
+    String event
+
+    int quantity
+
+    @NotNull
+    LocalTime time
 }

@@ -22,6 +22,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <java.version>1.8</java.version>
+
+    <!--Groovy-->
+    <groovy-all.version>2.4.14</groovy-all.version>
+    <groovy-eclipse-compiler.version>2.9.2-04</groovy-eclipse-compiler.version>
+    <groovy-eclipse-batch.version>2.4.3-01</groovy-eclipse-batch.version>
   </properties>
 
   <dependencies>
@@ -49,7 +54,6 @@
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <!-- <version>6.0.6</version>-->
     </dependency>
 
     <dependency>
@@ -69,6 +73,24 @@
       <artifactId>bootstrap</artifactId>
       <version>4.0.0-2</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-all</artifactId>
+      <version>${groovy-all.version}</version>
+    </dependency>
+
+    <!--<dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-eclipse-compiler</artifactId>
+      <version>${groovy-eclipse-compiler.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.groovy</groupId>
+      <artifactId>groovy-eclipse-batch</artifactId>
+      <version>${groovy-eclipse-batch.version}</version>
+    </dependency>-->
+
 
     <!--<dependency>
       <groupId>com.h2database</groupId>
@@ -90,6 +112,55 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>UTF-8</encoding>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+          <verbose>true</verbose>
+          <compilerId>groovy-eclipse-compiler</compilerId>
+        </configuration>
+
+        <dependencies>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-eclipse-compiler</artifactId>
+            <version>${groovy-eclipse-compiler.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-eclipse-batch</artifactId>
+            <version>${groovy-eclipse-batch.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin.version}</version>
+      </plugin>
     </plugins>
   </build>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>bintray</id>
+      <name>Groovy Bintray</name>
+      <url>https://dl.bintray.com/groovy/maven</url>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 </project>

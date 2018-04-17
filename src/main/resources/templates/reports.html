@@ -19,5 +19,175 @@
 
 <div th:replace="~{fragments/static :: scriptFragment}"/>
 
+<!--/*[['localhost:8080/secure/postbox/' + ${postBox.id} +'/events']]*/-->
+<script type="text/javascript">
+  function fetchEventLogs() {
+    //console.log('fetchEventLogs');
+    var reportMode = document.reportMode;
+    //console.log(reportMode);
+    var postboxId = [[${postBox.id}]];
+    var requestUrl = '/secure/postboxes/' + postboxId + '/events';
+
+    $.ajax({
+      url: requestUrl,
+      type: 'get',
+      dataType: "json",
+      timeout: 1000,
+      data: {
+        'reportMode': JSON.stringify(reportMode)
+      }
+    })
+    .done(function (response) {
+      //TODO: I have to check this!
+      if (response == undefined) {
+        $('table-div').hide();
+      } else {
+        let modeName = document.reportMode.modeName;
+
+        if (modeName === 'LAST_N') {
+          prepareNewTableForLastN(response);
+
+          if (response.length > 0) {
+            document.lastEventLogId = response[0].id
+          }
+        }
+        else {
+          appendRowsToTheExistedTable(response);
+          if (response.length > 0) {
+            document.lastEventLogId = response[response.length - 1].id
+          }
+          document.reportMode = allFrom(document.lastEventLogId);
+        }
+        console.log('lastEventLogId: ' + document.lastEventLogId);
+      }
+    })
+    .fail(function (xhr, status, errorThrown) {
+      // errorFunction(xhr, status, errorThrown);
+    })
+  }
+
+  function errorFunction(xhr, status, errorThrown) {
+    //alert("Sorry, there was a problem!");
+    console.log("Error: " + errorThrown);
+    console.log("Status: " + status);
+    console.dir(xhr);
+  }
+
+  function prepareNewTableForLastN(response) {
+    var newTableBody = $('<tbody>');
+
+    response.forEach(function (eventLog) {
+
+      let newTr = prepareTableRowForEventLog(eventLog);
+
+      newTableBody.append(newTr);
+    });
+    $('#log-table').find('tbody').replaceWith(newTableBody);
+  }
+
+  function appendRowsToTheExistedTable(response) {
+    response.forEach(function (eventLog) {
+
+      let newTr = prepareTableRowForEventLog(eventLog);
+
+      $('#log-table').find('tbody').prepend(newTr);
+    });
+  }
+
+  function prepareTableRowForEventLog(eventLog) {
+    var idTd = $('<td>').html(eventLog.id);
+    var eventTd = $('<td>').html(eventLog.event);
+
+    var quantity = eventLog.quantity;
+    var resultQuantity = quantity < 1 ? '-' : quantity;
+
+    var quantityTd = $('<td>').html(resultQuantity);
+    var timeTd = $('<td>').html(eventLog.time);
+
+    var newTr = $('<tr>').append(idTd).append(eventTd).append(
+        quantityTd).append(timeTd);
+
+    return newTr;
+  }
+
+  $(document).ready(function () {
+    document.reportMode = last15();
+    fetchEventLogs();
+    setInterval(fetchEventLogs, 3000);
+  });
+
+  $(function () {
+
+    $(".dropdown-menu li a").click(function () {
+      var selectedItem = $(this);
+
+      if (!selectedItem.hasClass('disabled')) {
+        populateFirstChildBySelectedValue(selectedItem);
+        updateReportModeValue(selectedItem);
+        removeDisabledClassFromAllLis();
+
+        $(this).addClass('disabled');
+      }
+    });
+
+    function populateFirstChildBySelectedValue(selectedItem) {
+      var selectedItemText = selectedItem.text();
+      $(".btn:first-child").text(selectedItemText);
+      $(".btn:first-child").val(selectedItemText);
+    }
+
+    function updateReportModeValue(selectedItem) {
+      var selectedItemId = selectedItem.text();
+      switch (selectedItemId) {
+        case 'last 15':
+          document.reportMode = last15();
+          break;
+        case 'last 30':
+          document.reportMode = last30();
+          break;
+        case 'last 50':
+          document.reportMode = last50();
+          break;
+        case 'All':
+          document.reportMode = allFrom(document.lastEventLogId);
+          break;
+        default:
+          console.log('Unexpected param ' + selectedItemId);
+      }
+    }
+
+    function removeDisabledClassFromAllLis() {
+      $('#per-15-li').removeClass('disabled');
+      $('#per-30-li').removeClass('disabled');
+      $('#per-50-li').removeClass('disabled');
+      $('#all-li').removeClass('disabled');
+    }
+  });
+
+  class ReportMode {
+    constructor(modeName, itemsCount = null, lastLogId = null) {
+      this.modeName = modeName;
+      this.itemsCount = itemsCount;
+      this.lastLogId = lastLogId;
+    }
+  };
+
+  function last15() {
+    return new ReportMode('LAST_N', 15);
+  }
+
+  function last30() {
+    return new ReportMode('LAST_N', 30);
+  }
+
+  function last50() {
+    return new ReportMode('LAST_N', 50);
+  }
+
+  function allFrom(lastId) {
+    return new ReportMode('ALL_FROM', null, lastId);
+  }
+</script>
+
 </body>
 </html>
