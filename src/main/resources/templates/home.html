@@ -1,19 +1,115 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Spring Security Example</title>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head th:replace="~{fragments/static :: styleFragment}">
 </head>
 <body>
-<h1>Welcome!</h1>
+<div th:replace="~{fragments/topNavbar :: topNavbarFragment}"/>
 
-<p>Click <a th:href="@{/secure/hello}">here</a> to see a greeting.</p>
+<div class="container-fluid">
+  <div class="row">
 
-<h3>User Articles Details</h3>
-<div>
-  Logged in user: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-  <form th:action="@{/app-logout}" method="POST">
-    <input type="submit" value="Logout"/>
-  </form>
+    <div th:replace="~{fragments/leftNavbar :: leftNavbarFragment}"/>
+
+    <div th:replace="~{fragments/postboxes :: postboxesFragment}"/>
+  </div>
 </div>
+
+<div th:replace="~{fragments/static :: scriptFragment}"/>
+
+<script type="text/javascript">
+  function fetchPostboxes() {
+    var userId = [[${userId}]];
+    var requestUrl = '/secure/users/' + userId + '/postboxes';
+
+    $.ajax({
+      url: requestUrl,
+      type: 'get',
+      dataType: "json",
+      timeout: 1000
+    })
+    .done(function (response) {
+      console.log('response: ' + response);
+      //TODO: I have to check this!
+
+      response.forEach(function (postbox) {
+        var parentDiv = prepareChild(postbox);
+        $('#postboxes').append(parentDiv);
+      })
+      /*if (response == undefined) {
+        $('table-div').hide();
+      } else {
+        let modeName = document.reportMode.modeName;
+
+        if (modeName === 'LAST_N') {
+          prepareNewTableForLastN(response);
+
+          if (response.length > 0) {
+            document.lastEventLogId = response[0].id
+          }
+        }
+        else {
+          appendRowsToTheExistedTable(response);
+          if (response.length > 0) {
+            document.lastEventLogId = response[response.length - 1].id
+          }
+          document.reportMode = allFrom(document.lastEventLogId);
+        }
+        console.log('lastEventLogId: ' + document.lastEventLogId);
+      }*/
+    })
+    .fail(function (xhr, status, errorThrown) {
+      errorFunction(xhr, status, errorThrown);
+    })
+  }
+
+  function errorFunction(xhr, status, errorThrown) {
+    console.log("Error: " + errorThrown);
+    console.log("Status: " + status);
+    console.dir(xhr);
+  }
+
+  function prepareChild(postbox) {
+    var parentDiv = $('<div>').addClass("col-6 col-sm-3 placeholder");
+    parentDiv.append(
+        '<img  src=\"data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=\" width="200" height="200" class="img-fluid rounded-circle" alt=\"Generic placeholder thumbnail\">');
+
+    var a = $('<a>').attr('href', '/secure/postbox/' + postbox.id + '/report');
+    var h4 = $('<h4>').html('id: ' + postbox.id);
+
+    a.append(h4);
+    parentDiv.append(a);
+
+    var address = postbox.address;
+
+    var country = address.country;
+    var city = address.city;
+    var street = address.street;
+    var building = address.building;
+
+    var formatedAddress = "Address: country={0}, city={1}, street={2}, building={3}".format(country,
+        city, street, building);
+
+    var divAddress = $('<div>').addClass("text-muted").html(formatedAddress);
+    parentDiv.append(divAddress);
+
+    return parentDiv;
+  }
+
+  $(document).ready(function () {
+    fetchPostboxes();
+  });
+
+  String.prototype.f = String.prototype.format = function () {
+    var s = this,
+        i = arguments.length;
+
+    while (i--) {
+      s = s.replace(new RegExp('\\{' + i + '\\}', 'gm'), arguments[i]);
+    }
+    return s;
+  };
+</script>
 </body>
 </html>

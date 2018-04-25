@@ -47,8 +47,7 @@ public class PostBoxServiceImpl implements PostBoxService {
     throw new UnsupportedOperationException("Not implemented!");
   }
 
-  public Postbox getPostBoxById(final long id)
-      throws PostBoxServiceException, ServiceValidationException {
+  public Postbox getPostBoxById(final long id) {
     return postboxRepository.findById(id).orElseThrow(
         () -> {
           final String errorMessage = String.format("No such postbox id:%s", id);
@@ -59,6 +58,11 @@ public class PostBoxServiceImpl implements PostBoxService {
   @Override
   public Set<Postbox> getPostBoxesByUserName(final String userName) {
     return postboxRepository.findByUsers_Name(userName);
+  }
+
+  @Override
+  public Set<Postbox> getPostBoxesByUserId(long userId) {
+    return postboxRepository.findByUsers_Id(userId);
   }
 
   @Override

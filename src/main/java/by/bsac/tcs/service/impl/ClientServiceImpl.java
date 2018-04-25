@@ -3,8 +3,6 @@ package by.bsac.tcs.service.impl;
 import by.bsac.tcs.model.User;
 import by.bsac.tcs.repository.ClientRepository;
 import by.bsac.tcs.service.ClientService;
-import by.bsac.tcs.service.exception.ClientServiceException;
-import by.bsac.tcs.service.exception.ServiceValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,22 +17,22 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public void singUp(User user) throws ClientServiceException, ServiceValidationException {
+  public void singUp(User user) {
     throw new UnsupportedOperationException("Not implemented!");
   }
 
   @Override
-  public void signIn(User user) throws ClientServiceException, ServiceValidationException {
+  public void signIn(User user) {
     throw new UnsupportedOperationException("Not implemented!");
   }
 
   @Override
-  public void signOut() throws ClientServiceException {
+  public void signOut() {
     throw new UnsupportedOperationException("Not implemented!");
   }
 
   @Override
-  public User getUserByName(String userName) throws ClientServiceException {
+  public User getUserByName(String userName) {
     return clientRepository.findByLogin(userName);
   }
 }

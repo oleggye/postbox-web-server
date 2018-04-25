@@ -22,7 +22,7 @@ class Address {
     String street
 
     @Column
-    String building;
+    String building
 
     @Override
     String toString() {
@@ -31,6 +31,6 @@ class Address {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", building='" + building + '\'' +
-                '}';
+                '}'
     }
 }

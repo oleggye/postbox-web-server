@@ -17,7 +17,7 @@ class Postbox {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
     Address address
 
@@ -30,6 +30,4 @@ class Postbox {
 
     @OneToMany(mappedBy = "postbox", fetch = FetchType.LAZY)
     Set<EventLog> eventLogs
-
-
 }

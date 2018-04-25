@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Spring Security Example</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+
+<p>Click <a th:href="@{/secure/hello}">here</a> to see a greeting.</p>
+
+<h3>User Articles Details</h3>
+<div>
+  Logged in user: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+  <form th:action="@{/app-logout}" method="POST">
+    <input type="submit" value="Logout"/>
+  </form>
+</div>
+</body>
+</html>

@@ -1,13 +1,14 @@
 package by.bsac.tcs.controller.rest;
 
+import static by.bsac.tcs.controller.util.DtoConverter.convertToDto;
+
 import by.bsac.tcs.controller.dto.EventLogDto;
+import by.bsac.tcs.controller.dto.PostBoxDto;
 import by.bsac.tcs.controller.dto.ReportMode;
 import by.bsac.tcs.controller.util.DtoConverter;
 import by.bsac.tcs.model.EventLog;
 import by.bsac.tcs.model.Postbox;
 import by.bsac.tcs.service.PostBoxService;
-import by.bsac.tcs.service.exception.PostBoxServiceException;
-import by.bsac.tcs.service.exception.ServiceValidationException;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -34,10 +35,15 @@ public class PostBoxRestController {
     this.postBoxService = postBoxService;
   }
 
+  @GetMapping(value = "/{id}")
+  public PostBoxDto getPostBox(@PathVariable long id) {
+    final Postbox postBox = postBoxService.getPostBoxById(id);
+    return convertToDto(postBox);
+  }
+
   @GetMapping(value = "/{id}/events")
   public List<EventLogDto> getEventLogs(@PathVariable long id,
-      @RequestParam @Validated ReportMode reportMode)
-      throws PostBoxServiceException, ServiceValidationException {
+      @RequestParam @Validated ReportMode reportMode) {
 
     final Postbox postBox = postBoxService.getPostBoxById(id);
     List<EventLog> eventLogs = postBoxService.getEventLogsForPostBox(postBox, reportMode);

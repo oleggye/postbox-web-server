@@ -8,9 +8,9 @@
 <main th:fragment="postboxesFragment" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
   <h1 th:text="#{index.overview}"></h1>
 
-  <section class="row text-center placeholders">
+  <section class="row text-center placeholders" id="postboxes">
 
-    <th:block th:each="postbox : ${postboxes}">
+   <!-- <th:block th:each="postbox : ${postboxes}">
       <div class="col-6 col-sm-3 placeholder">
         <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs="
              width="200" height="200" class="img-fluid rounded-circle"
@@ -20,7 +20,7 @@
         </a>
         <div class="text-muted" th:text="${postbox.address}"></div>
       </div>
-    </th:block>
+    </th:block>-->
     <!--<div class="col-6 col-sm-3 placeholder">
       <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs="
            width="200" height="200" class="img-fluid rounded-circle"

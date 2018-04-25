@@ -16,9 +16,11 @@ public interface PostBoxService {
   void removePostBox(final Postbox postBox)
       throws PostBoxServiceException, ServiceValidationException;
 
-  Postbox getPostBoxById(final long id) throws PostBoxServiceException, ServiceValidationException;
+  Postbox getPostBoxById(final long id);
 
   Set<Postbox> getPostBoxesByUserName(final String userName);
+
+  Set<Postbox> getPostBoxesByUserId(final long userId);
 
   List<EventLog> getEventLogsForPostBox(final Postbox postBox);
 

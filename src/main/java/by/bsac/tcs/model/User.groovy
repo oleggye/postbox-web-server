@@ -29,7 +29,7 @@ class User {
     @JoinColumn(name = "id")
     UserPrivate userPrivate
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_address", referencedColumnName = "id", nullable = false)
     Address address
 

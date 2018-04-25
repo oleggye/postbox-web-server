@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll();*/
 
     http.authorizeRequests()
+        .antMatchers("/spring-security-rest/api/v2/api-docs").permitAll()
         .antMatchers("/secure/**").hasAnyRole("ADMIN", "USER")
           .and()
         .formLogin()  //login configuration
