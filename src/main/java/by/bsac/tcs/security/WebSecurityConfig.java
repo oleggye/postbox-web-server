@@ -1,17 +1,21 @@
 package by.bsac.tcs.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableResourceServer
+//@EnableGlobalMethodSecurity(securedEnabled = true)//activates @Secured annotation
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired
@@ -32,8 +36,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .logout()
         .permitAll();*/
 
-    http.authorizeRequests()
-        .antMatchers("/spring-security-rest/api/v2/api-docs").permitAll()
+    /*http.authorizeRequests()
+        .antMatchers("/login").permitAll()
         .antMatchers("/secure/**").hasAnyRole("ADMIN", "USER")
           .and()
         .formLogin()  //login configuration
@@ -49,12 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
           .invalidateHttpSession(true)
         .and()
         .exceptionHandling() //exception handling configuration
-          .accessDeniedPage("/error");
+          .accessDeniedPage("/error");*/
   }
 
-  @Autowired
+  /*@Autowired
   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+  }*/
+
+  @Bean
+  @Override
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
   }
 }

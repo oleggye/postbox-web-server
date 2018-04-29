@@ -6,6 +6,7 @@ import by.bsac.tcs.repository.ClientRepository;
 import java.util.Collections;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 @Service
+@Primary
 public class ApplicationUserDetailsService implements UserDetailsService {
 
   @Autowired
@@ -23,7 +25,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String login) {
-    logger.info("login{0}", login);
+    logger.info("login{}", login);
 
     final User user = clientRepository.findByLogin(login);
     UserPrivate userPrivate = user.getUserPrivate();
