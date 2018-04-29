@@ -34,7 +34,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
-    // forward requests to /admin and /user to their index.html
     registry.addViewController("/").setViewName(
         "forward:/login");
   }
