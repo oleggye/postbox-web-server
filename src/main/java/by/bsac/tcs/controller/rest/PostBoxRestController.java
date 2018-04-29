@@ -58,7 +58,7 @@ public class PostBoxRestController {
     if (logger.isWarnEnabled()) {
       logger.warn(exception.toString());
     }
-    return exception.getMessage();
+    return "Sorry, no such resource";
   }
 
   @Autowired
