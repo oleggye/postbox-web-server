@@ -6,35 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" type="text/css"
-        href="/static/css/custom/login-form.css"
+        href="../static/css/custom/login-form.css"
         th:href="@{/css/custom/login-form.css}">
   <link rel="stylesheet" type="text/css"
-        href="/static/css/bootstrap.css"
+        href="../static/css/bootstrap.css"
         th:href="@{/css/bootstrap.css}">
-
-  <script rel="stylesheet" type="application/javascript"
-          href="/static/js/jquery-3.3.1.min.js"
-          th:href="@{/js/jquery-3.3.1.min.js}"></script>
-  <script rel="stylesheet" type="application/javascript"
-          href="/static/js/bootstrap.js"
-          th:href="@{/js/bootstrap.js}"></script>
-
-  <link rel="stylesheet" type="text/css"
-        href="/static/css/custom/login-form.css"
-        th:href="@{/css/custom/login-form.css}">
-  <link rel="stylesheet" type="text/css"
-        href="/static/css/bootstrap.css"
-        th:href="@{/css/bootstrap.css}">
-
-  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css"
-        th:href="@{/css/bootstrap.css}">
-  <script rel="stylesheet" type="application/javascript"
-          href="/static/js/jquery-3.3.1.min.js"
-          th:href="@{/js/jquery-3.3.1.min.js}"></script>
-  <script rel="stylesheet" type="application/javascript"
-          href="/static/js/bootstrap.js"
-          th:href="@{/js/bootstrap.js}"></script>
-
 </head>
 <body>
 <div th:if="${param.error}">
@@ -43,13 +19,7 @@
 <div th:if="${param.logout}">
   You have been logged out.
 </div>
-<!--
-<form th:action="@{/login}" method="post">
-  <div><label> User Name : <input type="text" name="username"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
-  <div><input type="submit" value="Sign In"/></div>
-</form>
--->
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -86,7 +56,6 @@
 </div>
 
 <footer class="container-fluid text-center">
-  <p>Footer Text</p>
 </footer>
 </body>
 </html>
