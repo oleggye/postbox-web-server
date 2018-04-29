@@ -68,24 +68,6 @@
       <version>${groovy-all.version}</version>
     </dependency>
 
-    <!--<dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-eclipse-compiler</artifactId>
-      <version>${groovy-eclipse-compiler.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-eclipse-batch</artifactId>
-      <version>${groovy-eclipse-batch.version}</version>
-    </dependency>-->
-
-
-    <!--<dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
-    </dependency>-->
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
