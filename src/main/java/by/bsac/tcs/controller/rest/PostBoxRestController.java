@@ -55,7 +55,9 @@ public class PostBoxRestController {
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   public String noSuchPostBox(final IllegalArgumentException exception) {
-    logger.warn(exception.toString());
+    if (logger.isWarnEnabled()) {
+      logger.warn(exception.toString());
+    }
     return exception.getMessage();
   }
 

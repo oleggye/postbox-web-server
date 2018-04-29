@@ -17,21 +17,6 @@ public class ClientServiceImpl implements ClientService {
   }
 
   @Override
-  public void singUp(User user) {
-    throw new UnsupportedOperationException("Not implemented!");
-  }
-
-  @Override
-  public void signIn(User user) {
-    throw new UnsupportedOperationException("Not implemented!");
-  }
-
-  @Override
-  public void signOut() {
-    throw new UnsupportedOperationException("Not implemented!");
-  }
-
-  @Override
   public User getUserByName(String userName) {
     return clientRepository.findByLogin(userName);
   }

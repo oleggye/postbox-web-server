@@ -3,7 +3,6 @@ package by.bsac.tcs.controller;
 import by.bsac.tcs.model.Postbox;
 import by.bsac.tcs.model.User;
 import by.bsac.tcs.service.ClientService;
-import by.bsac.tcs.service.exception.ClientServiceException;
 import java.security.Principal;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +23,7 @@ public class WebController {
   }
 
   @GetMapping("/home")
-  public ModelAndView overview(final Principal principal) throws ClientServiceException {
+  public ModelAndView overview(final Principal principal) {
     final String userName = principal.getName();
     final User user = clientService.getUserByName(userName);
     Set<Postbox> postboxes = user.getPostboxes();

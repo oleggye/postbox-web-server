@@ -2,13 +2,10 @@ package by.bsac.tcs.controller;
 
 import by.bsac.tcs.model.Postbox;
 import by.bsac.tcs.service.PostBoxService;
-import by.bsac.tcs.service.exception.PostBoxServiceException;
-import by.bsac.tcs.service.exception.ServiceValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,11 +33,5 @@ public class PostBoxController {
     mav.addObject("postBox", postBox);
     mav.setViewName("reports");
     return mav;
-  }
-
-  @PostMapping
-  public void registerPostBox(Postbox postBox)
-      throws PostBoxServiceException, ServiceValidationException {
-    postBoxService.registration(postBox);
   }
 }

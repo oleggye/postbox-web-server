@@ -16,7 +16,7 @@ public class StringToReportModeConverter implements Converter<String, ReportMode
     try {
       return OBJECT_MAPPER.readValue(value, ReportMode.class);
     } catch (IOException e) {
-      final String errorMessage = String.format("Can't parse %value to reportMode", value);
+      final String errorMessage = String.format("Can't parse %s to reportMode", value);
       throw new IllegalArgumentException(errorMessage);
     }
   }
