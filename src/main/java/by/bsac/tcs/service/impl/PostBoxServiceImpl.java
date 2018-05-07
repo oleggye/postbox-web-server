@@ -2,16 +2,17 @@ package by.bsac.tcs.service.impl;
 
 import static by.bsac.tcs.controller.dto.ReportMode.ModeName.LAST_N;
 import static by.bsac.tcs.service.util.EntityMapper.mapToList;
+import static java.util.Objects.nonNull;
 
 import by.bsac.tcs.controller.dto.ReportMode;
+import by.bsac.tcs.model.Event.EventType;
 import by.bsac.tcs.model.EventLog;
 import by.bsac.tcs.model.Postbox;
 import by.bsac.tcs.repository.EventLogRepository;
 import by.bsac.tcs.repository.PostboxRepository;
 import by.bsac.tcs.service.PostBoxService;
-import by.bsac.tcs.service.exception.PostBoxServiceException;
-import by.bsac.tcs.service.exception.ServiceValidationException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,14 +37,12 @@ public class PostBoxServiceImpl implements PostBoxService {
   }
 
   @Override
-  public void registration(final Postbox postBox)
-      throws PostBoxServiceException, ServiceValidationException {
+  public void registration(final Postbox postBox) {
     throw new UnsupportedOperationException("Not implemented!");
   }
 
   @Override
-  public void removePostBox(final Postbox postBox)
-      throws PostBoxServiceException, ServiceValidationException {
+  public void removePostBox(final Postbox postBox) {
     throw new UnsupportedOperationException("Not implemented!");
   }
 
@@ -95,5 +94,48 @@ public class PostBoxServiceImpl implements PostBoxService {
         .findByPostbox_id(postboxId, pageable);
 
     return mapToList(pagedPostboxes);
+  }
+
+  @Override
+  public int getLettersCount(Postbox postBox) {
+    final EventLog quantityChangedEvent = getLastEventLogByType(postBox,
+        EventType.QUANTITY_CHANGED);
+    final EventLog hasClosedEvent = getLastEventLogByType(postBox, EventType.HAS_CLOSED);
+
+    final long quantityChangedEventTime =
+        nonNull(quantityChangedEvent) ? quantityChangedEvent.getTime() : 0;
+
+    final long hasClosedEventTime = nonNull(hasClosedEvent) ? hasClosedEvent.getTime() : 0;
+
+    if (quantityChangedEventTime > hasClosedEventTime) {
+      return nonNull(quantityChangedEvent) ? quantityChangedEvent.getQuantity() : 0;
+    } else {
+      return 0;
+    }
+  }
+
+  @Override
+  public long getLastCloseTime(Postbox postbox) {
+    final EventType hasClosedEvent = EventType.HAS_CLOSED;
+    return getTimeForEvent(postbox, hasClosedEvent);
+  }
+
+  @Override
+  public long getLastLetterTime(Postbox postbox) {
+    final EventType quantityChangedEvent = EventType.QUANTITY_CHANGED;
+    return getTimeForEvent(postbox, quantityChangedEvent);
+  }
+
+  private long getTimeForEvent(final Postbox postbox, final EventType eventType) {
+    final EventLog eventLog = getLastEventLogByType(postbox, eventType);
+    return nonNull(eventLog) ? eventLog.getTime() : 0;
+  }
+
+  private EventLog getLastEventLogByType(final Postbox postbox, final EventType eventType) {
+    final Optional<EventLog> quantityChangedEventLog = eventLogRepository
+        .findFirstByPostboxIdAndEventNameOrderByIdDesc(postbox.getId(),
+            eventType.name());
+
+    return quantityChangedEventLog.orElse(null);
   }
 }

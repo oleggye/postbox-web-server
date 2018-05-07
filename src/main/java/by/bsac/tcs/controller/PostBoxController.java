@@ -34,4 +34,14 @@ public class PostBoxController {
     mav.setViewName("reports");
     return mav;
   }
+
+  @GetMapping("/{id}/presentation")
+  public ModelAndView presentation(@PathVariable long id) {
+    final Postbox postBox = postBoxService.getPostBoxById(id);
+
+    ModelAndView mav = new ModelAndView();
+    mav.addObject("postBox", postBox);
+    mav.setViewName("presentation");
+    return mav;
+  }
 }

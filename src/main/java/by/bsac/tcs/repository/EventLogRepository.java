@@ -2,6 +2,7 @@ package by.bsac.tcs.repository;
 
 import by.bsac.tcs.model.EventLog;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -22,5 +23,5 @@ public interface EventLogRepository extends PagingAndSortingRepository<EventLog,
 
   Page<EventLog> findByPostbox_id(final long postBoxId, Pageable pageable);
 
-
+  Optional<EventLog> findFirstByPostboxIdAndEventNameOrderByIdDesc(final long postBoxId, final String eventName);
 }

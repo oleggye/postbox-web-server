@@ -23,7 +23,7 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String login) {
-    logger.info("login{0}", login);
+    logger.info("login{}", login);
 
     final User user = clientRepository.findByLogin(login);
     UserPrivate userPrivate = user.getUserPrivate();

@@ -8,7 +8,8 @@
 <main th:fragment="mainFragment" class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
 
   <div class="dropdown float-right">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       last 15
     </button>
     <ul class="dropdown-menu">
@@ -19,30 +20,60 @@
     </ul>
   </div>
 
-  <h1>Logs</h1>
+  <h1>Статистика по почтовому ящику id:222859</h1>
 
   <div class="table-responsive" id="table-div">
     <table class="table table-striped" id="log-table">
       <thead>
       <tr>
         <th>#</th>
-        <th>event</th>
-        <th>quantity</th>
-        <th>time</th>
+        <th>Зарегистрированная операция</th>
+        <th>Количество писем</th>
+        <th>Время регистрации</th>
       </tr>
       </thead>
       <!--th:each="eventLog : ${eventLogs}"-->
-      <tbody  id="table-body">
+      <tbody id="table-body">
       <!--<tr>-->
-        <!--<td th:text="${eventLog.id}"></td>-->
-        <!--<td th:text="${eventLog.event}"></td>-->
-        <!--<td th:text="${eventLog.quantity}"></td>-->
-        <!--<td th:text="${eventLog.time}"></td>-->
+      <!--<td th:text="${eventLog.id}"></td>-->
+      <!--<td th:text="${eventLog.event}"></td>-->
+      <!--<td th:text="${eventLog.quantity}"></td>-->
+      <!--<td th:text="${eventLog.time}"></td>-->
       <!--</tr>-->
       </tbody>
     </table>
   </div>
 
+</main>
+
+<main th:fragment="presentationMainFragment"
+      class="col-sm-9 offset-sm-3 col-md-8 offset-md-2 pt-4">
+
+  <h1>Умный почтовый ящик</h1>
+
+  <div class="table-responsive" id="presentation-table-div">
+    <table class="table table-striped" id="presentation-table">
+      <!--th:each="eventLog : ${eventLogs}"-->
+      <tbody id="presentation-table-body">
+      <tr>
+        <td>Количество писем в ящике</td>
+        <td id="lettersCount-td"></td>
+      </tr>
+      <tr>
+        <td>Время вброса последнего письма</td>
+        <td id="lastLetterTime-td"></td>
+      </tr>
+      <tr>
+        <td>Последняя выемка писем произведена</td>
+        <td id="lastCloseTime-td"></td>
+      </tr>
+      <tr>
+        <td>Информация о заполении ящика в процентах</td>
+        <td id="letterRation-td"></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
 
 </body>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+
+<head th:replace="~{fragments/static :: styleFragment}">
+
+</head>
+<body>
+<div th:replace="~{fragments/topNavbar :: topNavbarFragment}"/>
+
+<div class="container-fluid">
+  <div class="row">
+
+    <div th:replace="~{fragments/leftNavbar :: leftNavbarFragment}"/>
+
+    <div th:replace="~{fragments/logs :: presentationMainFragment}"/>
+  </div>
+</div>
+
+<div th:replace="~{fragments/static :: scriptFragment}"/>
+
+<script type="text/javascript">
+
+  let MAX_LETTERS_COUNT = 300;
+
+  function fetchInfo() {
+    //console.log(reportMode);
+    var postboxId = [[${postBox.id}]];
+    var requestUrl = '/secure/postboxes/' + postboxId + '/info';
+
+    $.ajax({
+      url: requestUrl,
+      type: 'get',
+      dataType: "json",
+      timeout: 1000
+    })
+    .done(function (response) {
+      //TODO: I have to check this!
+      if (response == undefined) {
+        $('presentation-table-div').hide();
+      } else {
+        var lettersCount = response['lettersCount'];
+
+        $('#lettersCount-td').html(lettersCount);
+        $('#lastLetterTime-td').html(response['lastLetterTime']);
+        $('#lastCloseTime-td').html(response['lastCloseTime']);
+
+        var letterRation = (lettersCount / MAX_LETTERS_COUNT) * 100;
+        var roundedLetterRation = letterRation.toFixed(2);
+        $('#letterRation-td').html(roundedLetterRation + "%");
+      }
+    })
+    .fail(function (xhr, status, errorThrown) {
+      // errorFunction(xhr, status, errorThrown);
+    })
+  }
+
+  $(document).ready(function () {
+    fetchInfo();
+    setInterval(fetchInfo, 1000);
+  });
+</script>
+</body>
+</html>

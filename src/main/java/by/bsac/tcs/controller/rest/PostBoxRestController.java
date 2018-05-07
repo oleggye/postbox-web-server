@@ -3,6 +3,7 @@ package by.bsac.tcs.controller.rest;
 import static by.bsac.tcs.controller.util.DtoConverter.convertToDto;
 
 import by.bsac.tcs.controller.dto.EventLogDto;
+import by.bsac.tcs.controller.dto.LetterInfoDto;
 import by.bsac.tcs.controller.dto.PostBoxDto;
 import by.bsac.tcs.controller.dto.ReportMode;
 import by.bsac.tcs.controller.util.DtoConverter;
@@ -39,6 +40,17 @@ public class PostBoxRestController {
   public PostBoxDto getPostBox(@PathVariable long id) {
     final Postbox postBox = postBoxService.getPostBoxById(id);
     return convertToDto(postBox);
+  }
+
+  @GetMapping(value = "/{id}/info")
+  public LetterInfoDto getLettersCount(@PathVariable long id) {
+    final Postbox postBox = postBoxService.getPostBoxById(id);
+
+    int lettersCount = postBoxService.getLettersCount(postBox);
+    long lastCloseTime = postBoxService.getLastCloseTime(postBox);
+    long lastLetterTime = postBoxService.getLastLetterTime(postBox);
+
+    return convertToDto(lettersCount, lastLetterTime, lastCloseTime);
   }
 
   @GetMapping(value = "/{id}/events")

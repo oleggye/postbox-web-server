@@ -26,6 +26,12 @@ public interface PostBoxService {
 
   List<EventLog> getEventLogsForPostBox(final Postbox postBox, final ReportMode reportMode);
 
+  long getLastCloseTime(final Postbox postbox);
+
+  long getLastLetterTime(final Postbox postbox);
+
   List<EventLog> getEventLogsForPostBox(final Postbox postBox, final int count,
       final int pageNumber);
+
+  int getLettersCount(Postbox postBox);
 }

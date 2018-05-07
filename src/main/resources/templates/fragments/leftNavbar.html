@@ -8,8 +8,8 @@
 <nav th:fragment="leftNavbarFragment" class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
   <ul class="nav nav-pills flex-column" th:with="page=${#httpServletRequest.requestURI}">
     <!--<li class="nav-item">
-      <a class="nav-link" th:classappend="${#strings.equals(page, '/secure/overview')} ? active"
-         th:href="@{/secure/overview}" th:text="#{index.overview}">
+      <a class="nav-link" th:classappend="${#strings.equals(page, '/secure/presentation')} ? active"
+         th:href="@{/secure/presentation}" th:text="Презентация">
         <span class="sr-only">(current)</span></a>
     </li>-->
     <!--<li class=" nav-item">

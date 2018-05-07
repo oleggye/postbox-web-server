@@ -17,6 +17,4 @@ class Event {
     enum EventType {
         REGISTRATION, KEEP_ALIVE, HAS_OPENED, HAS_CLOSED, QUANTITY_CHANGED, LOG
     }
-
 }
-
