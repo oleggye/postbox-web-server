@@ -22,11 +22,11 @@ public class ApplicationUserDetailsService implements UserDetailsService {
   private Logger logger;
 
   @Override
-  public UserDetails loadUserByUsername(String login) {
-    logger.info("login{}", login);
+  public UserDetails loadUserByUsername(final String login) {
+    logger.info("login as {}", login);
 
     final User user = clientRepository.findByLogin(login);
-    UserPrivate userPrivate = user.getUserPrivate();
+    final UserPrivate userPrivate = user.getUserPrivate();
     final GrantedAuthority authority = new SimpleGrantedAuthority(userPrivate.getRole().name());
     return new org.springframework.security.core.userdetails.User(
         user.getLogin(),
